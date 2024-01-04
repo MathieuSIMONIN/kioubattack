@@ -1,8 +1,8 @@
 //Images
-String triangleImg = "bomb.png";
-String bgImg = "background.png";
-String kioubImg(int index) => "monster-$index.png";
-String expImg(int index) => "e-$index.png";
+String bombImage = "bomb.png";
+String backgroundImage = "background.png";
+String monsterImage(int index) => "monster-$index.png";
+String explosionImage(int index) => "e-$index.png";
 
 //Audio
 String bgMusic = "music.mp3";

@@ -1,5 +1,6 @@
 import 'package:flame/components.dart';
 import 'package:flame/game.dart';
+import 'package:flame/parallax.dart';
 import '../supporting_files/constants.dart';
 
 class MyGameScene extends FlameGame

@@ -1,5 +1,6 @@
 import 'dart:ui';
 
+import 'package:flame/flame.dart';
 import 'package:flame/components.dart';
 import 'package:kioub_attack/supporting_files/constants.dart';
 import 'package:kioub_attack/supporting_files/game_logic.dart';

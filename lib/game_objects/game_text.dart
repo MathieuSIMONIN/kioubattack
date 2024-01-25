@@ -2,7 +2,7 @@ import 'package:flame/components.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:kioub_attack/supporting_files/game_logic.dart';
-
+import 'package:flame/flame.dart';
 import '../supporting_files/constants.dart';
 
 class GameText {

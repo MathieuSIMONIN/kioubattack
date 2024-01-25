@@ -4,11 +4,17 @@ import 'package:flame/components.dart';
 import 'package:flame/events.dart';
 import 'package:flame/game.dart';
 import 'package:flame/parallax.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:kioub_attack/supporting_files/game_logic.dart';
+import '../game_objects/game_text.dart';
 import '../supporting_files/constants.dart';
 
 class MyGameScene extends FlameGame with TapDetector
 {
+
+  // This variable catch the window's size
+  Size gameSize = MediaQueryData.fromWindow(WidgetsBinding.instance.window).size;
+
   // This Method create a Parallax Component that take a parameter "parallax"
   @override
   Future<void>? onLoad() async {
@@ -29,15 +35,15 @@ class MyGameScene extends FlameGame with TapDetector
   @override
   void render(Canvas canvas){
     super.render(canvas);
-    gameOver ? renderGameOver() : renderIsPlaying();   // Ternary operator that check a condition
+    gameOver ? renderGameOver(canvas) : renderIsPlaying(canvas);   // Ternary operator that check a condition
   }
 
-  renderIsPlaying(){
-    print('Now playing!');
+  renderIsPlaying(Canvas canvas){
+    GameText().scoreText(canvas, gameSize);
   }
 
-  renderGameOver() {
-    print('Game Over!');
+  renderGameOver(Canvas canvas) {
+    GameText().gameOverText(canvas, gameSize);
   }
 
   void onTapUpInfo(TapUpInfo info){

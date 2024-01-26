@@ -10,6 +10,7 @@ class Bomb extends SpriteComponent
 
   Size screenSize;
   double tapPosition;
+  bool shouldRemove = false;
 
   Bomb({required this.tapPosition, required this.screenSize});
 
@@ -40,4 +41,9 @@ class Bomb extends SpriteComponent
   void render(Canvas canvas){
     super.render(canvas);
   }
+
+  void markForRemoval() {
+    shouldRemove = true;
+  }
+
 }

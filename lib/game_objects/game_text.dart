@@ -8,7 +8,7 @@ import '../supporting_files/constants.dart';
 class GameText {
   TextStyle style({required Color color, required double size}) => TextStyle(color: color, fontSize: size, fontFamily: fontName);
   TextPaint scoreStyle() => TextPaint(style: style(color: Colors.white, size: 30));
-  TextPaint gameOverStyle() => TextPaint(style: style(color: Colors.red, size: 48));
+  TextPaint gameOverStyle() => TextPaint(style: style(color: Colors.blue, size: 48));
 
   scoreText(Canvas canvas, Size size){
     scoreStyle().render(canvas, "Score: $score", Vector2(size.width/3, 30));

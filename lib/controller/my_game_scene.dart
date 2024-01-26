@@ -16,13 +16,20 @@ class MyGameScene extends FlameGame with TapDetector
 {
 
   // This variable catch the window's size
-  Size gameSize = MediaQueryData.fromWindow(WidgetsBinding.instance.window).size;
-  double reach3ToAdd = 3;  //
+  // Depreciated: Size gameSize = MediaQueryData.fromWindow(WidgetsBinding.instance.window).size;
+  late Size gameSize;  // "late" indicate that the variable will be initiate later
+  double reach3ToAdd = 3;
+
+  // Add constructor with BuildContext and pass context when instanciate MyGameScene gameScene = MyGameScene(context);
+  MyGameScene(BuildContext context) {
+    gameSize = MediaQuery.of(context).size;
+  }
 
   // This Method create a Parallax Component that take a parameter "parallax"
   @override
   Future<void>? onLoad() async {
-    ParallaxImageData data = ParallaxImageData(backgroundImage);  // Just one image was call from de parallax list (backgroundImage)
+    // Just one image was call from de parallax list (backgroundImage)
+    ParallaxImageData data = ParallaxImageData(backgroundImage); // , size: gameSize! "!" indicate that gameSize isn't null when onload
     final Parallax parallax = await loadParallax([data]);  // Use a parallax list named "data"
     final backgroundComponent = ParallaxComponent(parallax: parallax);
     add(backgroundComponent);
@@ -77,6 +84,10 @@ class MyGameScene extends FlameGame with TapDetector
       add(b);
     }
     gameOver = !gameOver;
+  }
+
+  void shouldRemove() {
+    monsters = [];
   }
 
 }

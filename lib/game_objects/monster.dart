@@ -9,6 +9,7 @@ class Monster extends SpriteComponent
 {
   String name;
   Size screenSize;
+  bool shouldRemove = false;
 
   Monster({required this.name, required this.screenSize});
   double get myX => Random().nextInt(screenSize.width.toInt()).toDouble();
@@ -39,6 +40,10 @@ class Monster extends SpriteComponent
         stop();  // Allow to reset all sprites in the game
       }
     }
+  }
+
+  void markForRemoval() {
+    shouldRemove = true;
   }
 
 }

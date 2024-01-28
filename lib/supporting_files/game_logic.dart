@@ -14,9 +14,6 @@ MyGameScene? gameScene;
 
 stop() {
   gameOver = true;
-  for (var monster in monsters) {
-    monster.markForRemoval();
-  }
   // monsters.forEach((monster) => monsters.shouldRemove = true);
   // bombs.forEach((bang) => bang.shouldRemove = true);
   monsters = [];

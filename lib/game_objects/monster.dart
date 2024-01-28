@@ -35,15 +35,17 @@ class Monster extends SpriteComponent
     super.update(dt);
     if(!gameOver){
       y += (gameSpeed + score) * dt/3;
-      if(y >= screenSize.height - 50) {   // If the monster is almost at bottom screen
-        shouldRemove = true;
-        stop();  // Allow to reset all sprites in the game
+      if(y >= screenSize.height - 50) {
+        removeMonster();
+        stop();
       }
+    } else {
+      removeMonster();
     }
   }
 
-  void markForRemoval() {
-    shouldRemove = true;
+  void removeMonster() {
+    gameScene!.remove(this);
   }
 
 }

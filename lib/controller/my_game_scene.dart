@@ -73,7 +73,7 @@ class MyGameScene extends FlameGame with TapDetector {
     print(info);
     print(gameOver);
     if (gameOver) {
-      start();
+      start(this);
     } else {
       double tapPosition = info.eventPosition.global.x;
       Bomb b = (Bomb(tapPosition: tapPosition, screenSize: gameSize));

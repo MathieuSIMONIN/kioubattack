@@ -5,9 +5,7 @@ import 'package:flame/components.dart';
 import 'package:kioub_attack/supporting_files/constants.dart';
 import 'package:kioub_attack/supporting_files/game_logic.dart';
 
-class Bomb extends SpriteComponent
-{
-
+class Bomb extends SpriteComponent {
   Size screenSize;
   double tapPosition;
   bool shouldRemove = false;
@@ -22,28 +20,27 @@ class Bomb extends SpriteComponent
   }
 
   @override
-  void onGameResize(Vector2 gameSize){
-    super.onGameResize(gameSize);
+  void onGameResize(Vector2 size) {
+    super.onGameResize(size);
     x = tapPosition;
     y = screenSize.height - 50;
   }
 
   @override
-  void update(double dt){
+  void update(double dt) {
     super.update(dt);
     y -= dt * gameSpeed;
-    if(y < 0){
-      shouldRemove = true;
+    if (y < 0 || gameOver) {
+      removeBomb();
     }
   }
 
   @override
-  void render(Canvas canvas){
+  void render(Canvas canvas) {
     super.render(canvas);
   }
 
-  void markForRemoval() {
-    shouldRemove = true;
+  void removeBomb() {
+    gameScene!.remove(this);
   }
-
 }

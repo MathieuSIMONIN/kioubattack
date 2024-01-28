@@ -1,4 +1,5 @@
 import 'package:flame/game.dart';
+import 'package:kioub_attack/controller/my_game_scene.dart';
 
 import '../game_objects/bomb.dart';
 import '../game_objects/monster.dart';
@@ -9,11 +10,13 @@ double gameSpeed = 125;
 int score = 0;
 List<Monster> monsters = [];
 List<Bomb> bombs = [];
+MyGameScene? gameScene;
 
 stop() {
   gameOver = true;
-  monsters.forEach((monster) => monster.markForRemoval());
-  bombs.forEach((bang) => bang.markForRemoval());
+  for (var monster in monsters) {
+    monster.markForRemoval();
+  }
   // monsters.forEach((monster) => monsters.shouldRemove = true);
   // bombs.forEach((bang) => bang.shouldRemove = true);
   monsters = [];
@@ -21,7 +24,8 @@ stop() {
 }
 
 // The Method below initiate all game's parameters
-start() async {
+start(MyGameScene myGameScene) async {
+  gameScene = myGameScene;
   // Use async to await music
   score = 0;
   gameOver = false;

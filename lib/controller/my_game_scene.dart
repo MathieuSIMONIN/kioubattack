@@ -12,27 +12,21 @@ import '../game_objects/bomb.dart';
 import '../game_objects/game_text.dart';
 import '../supporting_files/constants.dart';
 
-class MyGameScene extends FlameGame with TapDetector
-{
-
+class MyGameScene extends FlameGame with TapDetector {
   // This variable catch the window's size
   // Depreciated: Size gameSize = MediaQueryData.fromWindow(WidgetsBinding.instance.window).size;
-  late Size gameSize;  // "late" indicate that the variable will be initiate later
+  late Size gameSize; // "late" indicate that the variable will be initiate later
   double reach3ToAdd = 3;
-
-  // Add constructor with BuildContext and pass context when instanciate MyGameScene gameScene = MyGameScene(context);
-  MyGameScene(BuildContext context) {
-    gameSize = MediaQuery.of(context).size;
-  }
 
   // This Method create a Parallax Component that take a parameter "parallax"
   @override
   Future<void>? onLoad() async {
     // Just one image was call from de parallax list (backgroundImage)
     ParallaxImageData data = ParallaxImageData(backgroundImage); // , size: gameSize! "!" indicate that gameSize isn't null when onload
-    final Parallax parallax = await loadParallax([data]);  // Use a parallax list named "data"
+    final Parallax parallax = await loadParallax([data]); // Use a parallax list named "data"
     final backgroundComponent = ParallaxComponent(parallax: parallax);
     add(backgroundComponent);
+    gameSize = Size(size[0], size[1]);
     return super.onLoad();
   }
 
@@ -40,32 +34,32 @@ class MyGameScene extends FlameGame with TapDetector
   @override
   void update(double dt) {
     super.updateTree(dt);
-    if(!gameOver) {
+    if (!gameOver) {
       reach3ToAdd += dt;
-        if(reach3ToAdd >= 3) {
-          addMonster();
-          reach3ToAdd = 0;
-        }
-        monsters.removeWhere((bestiole) => bestiole.shouldRemove);
-        bombs.removeWhere((bing) => bing.shouldRemove);
+      if (reach3ToAdd >= 3) {
+        addMonster();
+        reach3ToAdd = 0;
+      }
+      monsters.removeWhere((bestiole) => bestiole.shouldRemove);
+      bombs.removeWhere((bing) => bing.shouldRemove);
     }
   }
 
   addMonster() {
-    final index = Random().nextInt(4) + 1;  // Randomize monster appearance and avoid monster 0
-    final monster = Monster(name: monsterImage(index), screenSize: gameSize);  // Put a monster on the scene, centred
+    final index = Random().nextInt(4) + 1; // Randomize monster appearance and avoid monster 0
+    final monster = Monster(name: monsterImage(index), screenSize: Size(size[0], size[1])); // Put a monster on the scene, centred
     monsters.add(monster);
     add(monster);
   }
 
   // This Method aimed that the canvas (the frame) have to display a new thing
   @override
-  void render(Canvas canvas){
+  void render(Canvas canvas) {
     super.render(canvas);
-    gameOver ? renderGameOver(canvas) : renderIsPlaying(canvas);   // Ternary operator that check a condition
+    gameOver ? renderGameOver(canvas) : renderIsPlaying(canvas); // Ternary operator that check a condition
   }
 
-  renderIsPlaying(Canvas canvas){
+  renderIsPlaying(Canvas canvas) {
     GameText().scoreText(canvas, gameSize);
   }
 
@@ -73,21 +67,23 @@ class MyGameScene extends FlameGame with TapDetector
     GameText().gameOverText(canvas, gameSize);
   }
 
-  void onTapUpInfo(TapUpInfo info){
+  @override
+  bool onTapUp(TapUpInfo info) {
     super.onTapUp(info);
-    if(gameOver){
+    print(info);
+    print(gameOver);
+    if (gameOver) {
       start();
     } else {
-      double tapPosition = info.eventPosition.global.x - 12.5;
+      double tapPosition = info.eventPosition.global.x;
       Bomb b = (Bomb(tapPosition: tapPosition, screenSize: gameSize));
       bombs.add(b);
       add(b);
     }
-    gameOver = !gameOver;
+    return true;
   }
 
   void shouldRemove() {
     monsters = [];
   }
-
 }
